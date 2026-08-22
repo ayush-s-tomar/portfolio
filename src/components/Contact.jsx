@@ -1,10 +1,30 @@
 ﻿import { motion } from 'framer-motion';
-import { Mail, ExternalLink } from 'lucide-react';
+import { Mail, ExternalLink, Star } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 
 export default function Contact() {
   return (
     <section id="contact" className="relative py-28 px-6 max-w-6xl mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="max-w-lg mx-auto mb-10 text-center"
+      >
+        <div className="flex items-center justify-center gap-1 mb-3">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} size={14} className="fill-[var(--mint)] text-[var(--mint)]" />
+          ))}
+        </div>
+        <p className="text-[var(--ink-muted)] italic text-sm leading-relaxed">
+          "Great work from start to finish — everything was delivered as
+          expected and the quality was excellent."
+        </p>
+        <p className="font-mono text-xs text-[var(--ink-muted)] mt-2">
+          — Upwork client, AI Chatbot Development
+        </p>
+      </motion.div>
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -19,9 +39,12 @@ export default function Contact() {
         <h2 className="font-display font-semibold text-4xl md:text-5xl tracking-tight mb-5 relative z-10">
           Let's build something<br className="hidden sm:block" /> that ships.
         </h2>
-        <p className="text-[var(--ink-muted)] max-w-lg mx-auto mb-9 relative z-10">
+        <p className="text-[var(--ink-muted)] max-w-lg mx-auto mb-3 relative z-10">
           Open to full-time AI Engineer / GenAI Developer roles and freelance
           work on agent systems and RAG pipelines.
+        </p>
+        <p className="font-mono text-xs text-[var(--mint)] mb-9 relative z-10">
+          Currently taking on select freelance projects — usually respond within 24h.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
           <a
