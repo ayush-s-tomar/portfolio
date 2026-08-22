@@ -14,10 +14,10 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
-          className="font-mono text-sm text-[var(--mint)] mb-5 flex items-center gap-2"
+          className="font-mono text-sm text-[var(--mint)] mb-5"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[var(--mint)] pulse-dot" />
-          $ whoami
+          <span className="text-[var(--ink-muted)]">$</span> whoami
+          <span className="inline-block w-2 h-4 bg-[var(--mint)] ml-1 align-middle animate-pulse" />
         </motion.p>
 
         <motion.h1
