@@ -69,7 +69,7 @@ export default function Hero() {
         >
           <span>NPTEL Elite Top 5% — IIT Kanpur</span>
           <span className="text-[var(--glass-border)]">/</span>
-          <span>CGPA 7.87, MITS Gwalior</span>
+          <span>MITS Gwalior, 2027</span>
         </motion.div>
       </div>
     </section>
