@@ -24,27 +24,27 @@ export default function Contact() {
           work on agent systems and RAG pipelines.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 relative z-10">
-          
+          <a
             href="mailto:ayushsinghtomar22@gmail.com"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--ink)] text-[var(--bg)] font-medium text-sm hover:scale-[1.03] transition-transform"
           >
             <Mail size={16} /> say hello
           </a>
-          
+          <a
             href="https://github.com/ayush-s-tomar"
             target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-mono hover:border-[var(--mint)] transition-colors"
           >
             <GithubIcon size={16} /> github
           </a>
-          
+          <a
             href="https://www.linkedin.com/in/ayushsinghtomar"
             target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-mono hover:border-[var(--mint)] transition-colors"
           >
             <ExternalLink size={16} /> linkedin
           </a>
-          
+          <a
             href="https://dev.to/ayushsinghtomar"
             target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full glass text-sm font-mono hover:border-[var(--mint)] transition-colors"
