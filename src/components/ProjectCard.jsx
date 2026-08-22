@@ -1,14 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, ArrowUpRight } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 
 function AnimatedMetric({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
 
-  // Extract a leading number from the metric value (e.g. "80%" -> 80, "4" -> 4).
-  // Non-numeric values (e.g. "LoRA", "MCP", "multi") render as-is, no animation.
   const match = String(value).match(/^(\d+)(.*)$/);
 
   useEffect(() => {
@@ -28,7 +26,6 @@ function AnimatedMetric({ value }) {
   if (!match) {
     return <span ref={ref}>{value}</span>;
   }
-  // tabular-nums locks digit width so the counter doesn't jitter/reflow as it counts up
   return <span ref={ref} className="tabular-nums">0{match[2] || ''}</span>;
 }
 
@@ -41,16 +38,26 @@ export default function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, delay: (index % 3) * 0.08, ease: 'easeOut' }}
-      whileHover={{ y: -4, scale: 1.015 }}
+      whileHover={{
+        y: -8,
+        scale: 1.02,
+        transition: { type: 'spring', stiffness: 300, damping: 20 },
+      }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="group relative rounded-2xl glass p-6 flex flex-col justify-between min-h-[300px] overflow-hidden transition-colors duration-300"
-      style={{ borderColor: hover ? 'var(--mint)' : 'var(--glass-border)' }}
+      className="group relative rounded-2xl glass p-6 flex flex-col justify-between min-h-[300px] overflow-hidden"
+      style={{
+        borderColor: hover ? 'var(--mint)' : 'var(--glass-border)',
+        boxShadow: hover
+          ? '0 20px 40px -12px rgba(41,246,198,0.25), 0 0 0 1px rgba(41,246,198,0.15)'
+          : '0 0 0 0 transparent',
+        transition: 'border-color 0.3s, box-shadow 0.35s',
+      }}
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
-          background: 'radial-gradient(400px circle at var(--x,50%) var(--y,50%), rgba(108,123,255,0.15), transparent 60%)',
+          background: 'radial-gradient(400px circle at var(--x,50%) var(--y,50%), rgba(108,123,255,0.18), transparent 60%)',
         }}
         onMouseMove={(e) => {
           const rect = e.currentTarget.getBoundingClientRect();
@@ -58,6 +65,16 @@ export default function ProjectCard({ project, index }) {
           e.currentTarget.style.setProperty('--y', `${e.clientY - rect.top}px`);
         }}
       />
+
+      {/* corner accent that sweeps in on hover */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        className="pointer-events-none absolute top-4 right-4 z-10 text-[var(--mint)]"
+      >
+        <ArrowUpRight size={18} />
+      </motion.div>
 
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-4">
@@ -90,9 +107,13 @@ export default function ProjectCard({ project, index }) {
       <div className="relative z-10 mt-5">
         <div className="flex flex-wrap gap-2 mb-4">
           {project.stack.map((s) => (
-            <span key={s} className="font-mono text-[11px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[var(--ink-muted)]">
+            <motion.span
+              key={s}
+              whileHover={{ scale: 1.08, borderColor: 'var(--mint)' }}
+              className="font-mono text-[11px] px-2 py-1 rounded-md bg-white/5 border border-white/10 text-[var(--ink-muted)] cursor-default transition-colors"
+            >
               {s}
-            </span>
+            </motion.span>
           ))}
         </div>
         <div className="flex items-center gap-4 font-mono text-xs">
