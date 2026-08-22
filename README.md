@@ -1,41 +1,81 @@
 # Ayush Tomar — Portfolio
 
-Dark, glassmorphic AI-engineer portfolio with a live Three.js agent-graph hero,
-interactive glowing project cards, and scroll-triggered motion — built with
-React, Vite, Tailwind CSS v4, Framer Motion, and Three.js.
+[![Live Demo](https://img.shields.io/badge/demo-live-29f6c6?style=flat-square)](https://ayush-s-tomar.vercel.app)
+[![Vite](https://img.shields.io/badge/build-vite-646cff?style=flat-square)](https://vitejs.dev)
+[![React](https://img.shields.io/badge/react-18-61dafb?style=flat-square)](https://react.dev)
+[![License](https://img.shields.io/badge/license-MIT-white?style=flat-square)](#license)
+
+### [→ ayush-s-tomar.vercel.app](https://ayush-s-tomar.vercel.app)
+
+A dark, glassmorphic portfolio with a live Three.js agent-graph hero, glowing project cards, and scroll-triggered motion — built to show shipped AI/agent work, not just a demo.
+
+![Portfolio preview](public/preview.png)
+
+## Contents
+
+- [Stack](#stack)
+- [Run locally](#run-locally)
+- [Build for production](#build-for-production)
+- [Deploy](#deploy-free--vercel)
+- [Customize](#customize)
+- [Notes](#notes)
+- [License](#license)
+
+## Stack
+
+| Layer | Tech |
+|---|---|
+| Frontend | React, Vite, Tailwind CSS v4 |
+| Motion | Framer Motion, Three.js (animated agent-graph background) |
+| Deploy | Vercel |
 
 ## Run locally
 
-    npm install
-    npm run dev
+```bash
+npm install
+npm run dev
+```
 
-Opens at http://localhost:5173
+Opens at `http://localhost:5173`.
 
 ## Build for production
 
-    npm run build
-    npm run preview
+```bash
+npm run build
+npm run preview
+```
 
 Output goes to `dist/`.
 
-## Deploy (free) — Vercel
+## Deploy (free — Vercel)
 
-1. Push this folder to a GitHub repo.
-2. vercel.com -> New Project -> import the repo.
-3. Framework preset: Vite. Build command: npm run build. Output dir: dist.
+1. Push this repo to GitHub.
+2. On [vercel.com](https://vercel.com) → **New Project** → import the repo.
+3. Framework preset: **Vite** · Build command: `npm run build` · Output dir: `dist`.
 4. Deploy.
 
-Netlify works the same way: build command `npm run build`, publish dir `dist`.
+Netlify works the same way — build command `npm run build`, publish dir `dist`.
 
 ## Customize
 
-- src/data.js — all project content, stack tags, metrics. Edit this first.
-- src/components/Hero.jsx — headline, subtext, stats line.
-- src/components/Contact.jsx — swap in your real email.
-- src/index.css — color tokens at the top control the whole palette.
-- src/components/AgentGraph.jsx — tweak NODE_COUNT / CONNECT_DIST for hero density.
+| File | What it controls |
+|---|---|
+| `src/data.js` | All project content, stack tags, metrics — edit this first |
+| `src/components/Hero.jsx` | Headline, subtext, stats line |
+| `src/components/Contact.jsx` | Email, testimonial, availability line |
+| `src/index.css` | Color tokens at the top — controls the whole palette |
+| `src/components/AgentGraph.jsx` | `NODE_COUNT` / `CONNECT_DIST` — hero graph density |
 
 ## Notes
 
-- Update the mailto: address in Contact.jsx and demo links in data.js.
-- Respects prefers-reduced-motion.
+- Respects `prefers-reduced-motion` for accessibility.
+- Update the `mailto:` address in `Contact.jsx` and demo links in `data.js` before reusing.
+- No backend — fully static, deploys as a single Vite build.
+
+## License
+
+MIT — feel free to fork and adapt the structure for your own portfolio. Please don't copy the content (project write-ups, testimonial, bio) verbatim.
+
+---
+
+Built by [Ayush Tomar](https://github.com/ayush-s-tomar) · [LinkedIn](https://www.linkedin.com/in/ayushsinghtomar) · [Dev.to](https://dev.to/ayushsinghtomar)
