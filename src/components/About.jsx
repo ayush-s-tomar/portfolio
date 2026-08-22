@@ -24,8 +24,8 @@ export default function About() {
         >
           <p>
             I'm a final-year B.Tech IT student at MITS Gwalior, but most of what
-            I've learned about building AI systems came from shipping — nine-plus
-            deployed projects, each one taken from an idea to a live URL.
+            I've learned about building AI systems came from shipping — each
+            project taken from an idea to a live URL.
           </p>
           <p>
             My focus is <span className="text-[var(--ink)]">multi-agent orchestration</span> —
