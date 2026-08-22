@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, animate } from 'framer-motion';
-import { ExternalLink, ArrowUpRight } from 'lucide-react';
+import { motion, useInView, animate, AnimatePresence } from 'framer-motion';
+import { ExternalLink, ArrowUpRight, ChevronDown } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 
 function AnimatedMetric({ value }) {
@@ -31,6 +31,7 @@ function AnimatedMetric({ value }) {
 
 export default function ProjectCard({ project, index }) {
   const [hover, setHover] = useState(false);
+  const [caseStudyOpen, setCaseStudyOpen] = useState(false);
 
   return (
     <motion.div
@@ -66,7 +67,6 @@ export default function ProjectCard({ project, index }) {
         }}
       />
 
-      {/* corner accent that sweeps in on hover */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
@@ -102,6 +102,44 @@ export default function ProjectCard({ project, index }) {
         >
           {project.detail}
         </motion.p>
+
+        {project.caseStudy && (
+          <div className="mt-3">
+            <button
+              onClick={() => setCaseStudyOpen((v) => !v)}
+              className="inline-flex items-center gap-1.5 font-mono text-xs text-[var(--mint)] hover:opacity-80 transition-opacity"
+            >
+              <motion.span
+                animate={{ rotate: caseStudyOpen ? 180 : 0 }}
+                transition={{ duration: 0.2 }}
+                className="inline-flex"
+              >
+                <ChevronDown size={13} />
+              </motion.span>
+              {caseStudyOpen ? 'hide the debugging story' : 'read the debugging story'}
+            </button>
+
+            <AnimatePresence initial={false}>
+              {caseStudyOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: 'easeOut' }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-3 pl-3 border-l-2 border-[var(--mint)]/30 space-y-3">
+                    {project.caseStudy.split('\n\n').map((para, i) => (
+                      <p key={i} className="text-xs text-[var(--ink-muted)] leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </div>
 
       <div className="relative z-10 mt-5">

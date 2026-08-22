@@ -5,6 +5,11 @@ export const projects = [
     tag: 'RAG · Document Intelligence',
     blurb: 'A section-aware RAG chatbot that answers questions over uploaded documents, built to survive real production edge cases — not just a demo.',
     detail: 'Rewrote chunking from raw character slicing to section-aware splitting, taking chunk match confidence from 29% to 62%. Layered in hybrid search (RRF), asymmetric embedding fixes, and conversation memory, then hardened it with Zod validation, a repository layer, and Vitest coverage.',
+    caseStudy: `Chunking was naive — raw character slicing let chunk boundaries fall mid-sentence or mid-word, and a hard 512-char embedding cap silently truncated the back half of every ~800-char chunk. Rewrote chunking to be sentence-aware with word-boundary-safe overlap, and fixed the embedding call to cover full chunks — retrieval relevance jumped immediately.
+
+Then found a second, subtler bug: queries were being embedded with Cohere's search_document type instead of search_query — silently degrading every single retrieval, even though the chunk embeddings themselves were correct. Cohere's embeddings are asymmetric by design; using the wrong input type is invisible until you actually measure retrieval quality.
+
+Built an LLM-as-judge eval harness to catch regressions automatically — then found a bug in the judge itself: it was scoring answers against a shorter context slice than the answer model actually saw, falsely penalizing correct answers as unsupported. Fixed the judge, then hit a third issue — the reasoning model was silently returning empty answers on hard questions because max_tokens didn't account for internal reasoning tokens, with no error thrown. Caught only via structured logging of finish_reason.`,
     stack: ['Next.js', 'Supabase', 'pgvector', 'Groq'],
     metric: { value: '80%', label: 'eval pass rate' },
     links: { github: 'https://github.com/ayush-s-tomar/intellect-docs-ai', demo: 'https://intellect-docs-ai.vercel.app/' },
