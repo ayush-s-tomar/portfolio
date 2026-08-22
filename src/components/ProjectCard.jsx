@@ -1,7 +1,36 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { motion, useInView, animate } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import GithubIcon from './GithubIcon';
+
+function AnimatedMetric({ value }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+
+  // Extract a leading number from the metric value (e.g. "80%" -> 80, "4" -> 4).
+  // Non-numeric values (e.g. "LoRA", "MCP", "multi") render as-is, no animation.
+  const match = String(value).match(/^(\d+)(.*)$/);
+
+  useEffect(() => {
+    if (!inView || !match || !ref.current) return;
+    const target = parseInt(match[1], 10);
+    const suffix = match[2] || '';
+    const controls = animate(0, target, {
+      duration: 1,
+      ease: 'easeOut',
+      onUpdate(v) {
+        if (ref.current) ref.current.textContent = `${Math.round(v)}${suffix}`;
+      },
+    });
+    return () => controls.stop();
+  }, [inView]);
+
+  if (!match) {
+    return <span ref={ref}>{value}</span>;
+  }
+  // tabular-nums locks digit width so the counter doesn't jitter/reflow as it counts up
+  return <span ref={ref} className="tabular-nums">0{match[2] || ''}</span>;
+}
 
 export default function ProjectCard({ project, index }) {
   const [hover, setHover] = useState(false);
@@ -12,6 +41,7 @@ export default function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, delay: (index % 3) * 0.08, ease: 'easeOut' }}
+      whileHover={{ y: -4, scale: 1.015 }}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       className="group relative rounded-2xl glass p-6 flex flex-col justify-between min-h-[300px] overflow-hidden transition-colors duration-300"
@@ -36,7 +66,9 @@ export default function ProjectCard({ project, index }) {
             <h3 className="font-display font-semibold text-2xl">{project.name}</h3>
           </div>
           <span className="font-mono text-right shrink-0 ml-3">
-            <span className="block text-lg font-semibold text-[var(--ink)]">{project.metric.value}</span>
+            <span className="block text-lg font-semibold text-[var(--ink)]">
+              <AnimatedMetric value={project.metric.value} />
+            </span>
             <span className="block text-[10px] text-[var(--ink-muted)]">{project.metric.label}</span>
           </span>
         </div>
@@ -64,11 +96,19 @@ export default function ProjectCard({ project, index }) {
           ))}
         </div>
         <div className="flex items-center gap-4 font-mono text-xs">
-          <a href={project.links.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[var(--mint)] transition-colors">
+          <a
+            href={project.links.github}
+            target="_blank" rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
+          >
             <GithubIcon size={14} /> code
           </a>
           {project.links.demo && project.links.demo !== '#' && (
-            <a href={project.links.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 hover:text-[var(--mint)] transition-colors">
+            <a
+              href={project.links.demo}
+              target="_blank" rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
+            >
               <ExternalLink size={14} /> live demo
             </a>
           )}
