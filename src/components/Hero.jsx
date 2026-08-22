@@ -35,7 +35,7 @@ export default function Hero() {
           transition={{ delay: 0.35, duration: 0.7 }}
           className="mt-6 text-lg text-[var(--ink-muted)] max-w-xl leading-relaxed"
         >
-          Ayush Tomar — final-year AI/ML engineer from Gwalior, India. I design
+          Ayush Tomar — AI Agent & RAG Developer from Gwalior, India. I design
           multi-agent systems and RAG pipelines with LangGraph, CrewAI, and FastAPI,
           then take them all the way to production.
         </motion.p>
@@ -67,8 +67,6 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 0.8 }}
           className="mt-16 flex flex-wrap gap-x-10 gap-y-3 font-mono text-xs text-[var(--ink-muted)]"
         >
-          <span>9+ deployed projects</span>
-          <span className="text-[var(--glass-border)]">/</span>
           <span>NPTEL Elite Top 5% — IIT Kanpur</span>
           <span className="text-[var(--glass-border)]">/</span>
           <span>CGPA 7.87, MITS Gwalior</span>
