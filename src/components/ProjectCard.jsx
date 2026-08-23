@@ -157,19 +157,11 @@ export default function ProjectCard({ project, index }) {
           ))}
         </div>
         <div className="flex items-center gap-4 font-mono text-xs">
-          
-            href={project.links.github}
-            target="_blank" rel="noreferrer"
-            className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
-          >
+          <a href={project.links.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200">
             <GithubIcon size={14} /> code
           </a>
           {project.links.demo && project.links.demo !== '#' && (
-            
-              href={project.links.demo}
-              target="_blank" rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
-            >
+            <a href={project.links.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200">
               <ExternalLink size={14} /> live demo
             </a>
           )}
