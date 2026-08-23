@@ -8,12 +8,14 @@ import Skills from './components/Skills';
 import Contact from './components/Contact';
 import CustomCursor from './components/CustomCursor';
 import ScrollProgress from './components/ScrollProgress';
+import CommandPalette from './components/CommandPalette';
 
 export default function App() {
   return (
     <div className="relative min-h-screen">
       <ScrollProgress />
       <CustomCursor />
+      <CommandPalette />
       <Nav />
       <Hero />
       <Projects />
