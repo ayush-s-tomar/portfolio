@@ -1,12 +1,19 @@
+import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ExternalLink } from 'lucide-react';
 import GithubIcon from './GithubIcon';
-import AgentGraph from './AgentGraph';
+
+// Lazy-loaded so the Three.js scene doesn't block first paint of the hero
+// text/CTA — it loads in a separate chunk and fades in once ready, instead
+// of delaying First Contentful Paint / Largest Contentful Paint.
+const AgentGraph = lazy(() => import('./AgentGraph'));
 
 export default function Hero() {
   return (
     <section id="top" className="relative min-h-screen flex items-center grid-bg overflow-hidden">
-      <AgentGraph />
+      <Suspense fallback={null}>
+        <AgentGraph />
+      </Suspense>
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--bg)]/40 to-[var(--bg)]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
