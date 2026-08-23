@@ -1,5 +1,5 @@
 ﻿import { useState, useEffect, useRef } from 'react';
-import { motion, useInView, animate, AnimatePresence } from 'framer-motion';
+import { motion, useInView, animate, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ExternalLink, ArrowUpRight, ChevronDown } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 
@@ -34,38 +34,55 @@ function AnimatedMetric({ value }) {
 export default function ProjectCard({ project, index }) {
   const [hover, setHover] = useState(false);
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
+  const cardRef = useRef(null);
+
+  const mvX = useMotionValue(0.5);
+  const mvY = useMotionValue(0.5);
+  const springX = useSpring(mvX, { stiffness: 150, damping: 20 });
+  const springY = useSpring(mvY, { stiffness: 150, damping: 20 });
+  const rotateX = useTransform(springY, [0, 1], [7, -7]);
+  const rotateY = useTransform(springX, [0, 1], [-7, 7]);
+
+  const handleMouseMove = (e) => {
+    const rect = cardRef.current.getBoundingClientRect();
+    mvX.set((e.clientX - rect.left) / rect.width);
+    mvY.set((e.clientY - rect.top) / rect.height);
+    e.currentTarget.style.setProperty('--x', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--y', `${e.clientY - rect.top}px`);
+  };
+
+  const handleLeave = () => {
+    setHover(false);
+    mvX.set(0.5);
+    mvY.set(0.5);
+  };
 
   return (
     <motion.div
+      ref={cardRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.55, delay: (index % 3) * 0.08, ease: 'easeOut' }}
-      whileHover={{
-        y: -8,
-        scale: 1.02,
-        transition: { type: 'spring', stiffness: 300, damping: 20 },
-      }}
       onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      className="group relative rounded-2xl glass p-6 flex flex-col justify-between min-h-[300px] overflow-hidden"
+      onMouseLeave={handleLeave}
+      onMouseMove={handleMouseMove}
       style={{
+        rotateX,
+        rotateY,
+        transformPerspective: 1000,
         borderColor: hover ? 'var(--mint)' : 'var(--glass-border)',
         boxShadow: hover
           ? '0 20px 40px -12px rgba(41,246,198,0.25), 0 0 0 1px rgba(41,246,198,0.15)'
           : '0 0 0 0 transparent',
         transition: 'border-color 0.3s, box-shadow 0.35s',
       }}
+      className="group relative rounded-2xl glass p-6 flex flex-col justify-between min-h-[300px] overflow-hidden"
     >
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         style={{
           background: 'radial-gradient(400px circle at var(--x,50%) var(--y,50%), rgba(108,123,255,0.18), transparent 60%)',
-        }}
-        onMouseMove={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          e.currentTarget.style.setProperty('--x', `${e.clientX - rect.left}px`);
-          e.currentTarget.style.setProperty('--y', `${e.clientY - rect.top}px`);
         }}
       />
 
@@ -74,11 +91,12 @@ export default function ProjectCard({ project, index }) {
         animate={{ scale: hover ? 1 : 0, opacity: hover ? 1 : 0 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
         className="pointer-events-none absolute top-4 right-4 z-10 text-[var(--mint)]"
+        style={{ transform: 'translateZ(30px)' }}
       >
         <ArrowUpRight size={18} />
       </motion.div>
 
-      <div className="relative z-10">
+      <div className="relative z-10" style={{ transform: 'translateZ(20px)' }}>
         <div className="flex items-start justify-between mb-4">
           <div>
             <p className="font-mono text-xs text-[var(--mint)] mb-1">{project.tag}</p>
@@ -144,7 +162,7 @@ export default function ProjectCard({ project, index }) {
         )}
       </div>
 
-      <div className="relative z-10 mt-5">
+      <div className="relative z-10 mt-5" style={{ transform: 'translateZ(20px)' }}>
         <div className="flex flex-wrap gap-2 mb-4">
           {project.stack.map((s) => (
             <motion.span

@@ -6,10 +6,14 @@ import Projects from './components/Projects';
 import ShippingLog from './components/ShippingLog';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
+import CustomCursor from './components/CustomCursor';
+import ScrollProgress from './components/ScrollProgress';
 
 export default function App() {
   return (
     <div className="relative min-h-screen">
+      <ScrollProgress />
+      <CustomCursor />
       <Nav />
       <Hero />
       <Projects />
