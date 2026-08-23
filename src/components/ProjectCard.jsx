@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { motion, useInView, animate, AnimatePresence } from 'framer-motion';
 import { ExternalLink, ArrowUpRight, ChevronDown } from 'lucide-react';
 import GithubIcon from './GithubIcon';
@@ -6,27 +6,29 @@ import GithubIcon from './GithubIcon';
 function AnimatedMetric({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-60px' });
-
   const match = String(value).match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : null;
+  const suffix = match ? (match[2] || '') : '';
+
+  const [display, setDisplay] = useState(target !== null ? target : value);
 
   useEffect(() => {
-    if (!inView || !match || !ref.current) return;
-    const target = parseInt(match[1], 10);
-    const suffix = match[2] || '';
+    if (!inView || target === null) return;
+    setDisplay(0);
     const controls = animate(0, target, {
       duration: 1,
       ease: 'easeOut',
       onUpdate(v) {
-        if (ref.current) ref.current.textContent = `${Math.round(v)}${suffix}`;
+        setDisplay(Math.round(v));
       },
     });
     return () => controls.stop();
   }, [inView]);
 
-  if (!match) {
+  if (target === null) {
     return <span ref={ref}>{value}</span>;
   }
-  return <span ref={ref} className="tabular-nums">0{match[2] || ''}</span>;
+  return <span ref={ref} className="tabular-nums">{display}{suffix}</span>;
 }
 
 export default function ProjectCard({ project, index }) {
@@ -155,7 +157,7 @@ export default function ProjectCard({ project, index }) {
           ))}
         </div>
         <div className="flex items-center gap-4 font-mono text-xs">
-          <a
+          
             href={project.links.github}
             target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
@@ -163,7 +165,7 @@ export default function ProjectCard({ project, index }) {
             <GithubIcon size={14} /> code
           </a>
           {project.links.demo && project.links.demo !== '#' && (
-            <a
+            
               href={project.links.demo}
               target="_blank" rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-[var(--ink-muted)] hover:text-[var(--mint)] hover:gap-2 transition-all duration-200"
