@@ -74,10 +74,10 @@ Built an LLM-as-judge eval harness to catch regressions automatically — then f
 ];
 
 export const skills = {
-  'agents & orchestration': ['LangGraph', 'CrewAI', 'Multi-agent design'],
-  'models & inference': ['Groq / LLaMA', 'RAG pipelines', 'LoRA fine-tuning'],
-  'backend': ['FastAPI', 'Flask', 'Python'],
+  'agents & orchestration': ['LangGraph', 'CrewAI', 'Multi-agent design', 'MCP'],
+  'models & inference': ['Groq / LLaMA', 'RAG pipelines', 'LoRA fine-tuning', 'Prompt engineering'],
+  'backend': ['FastAPI', 'Flask', 'Python', 'REST APIs'],
   'frontend': ['React', 'Vite', 'Streamlit'],
   'data & infra': ['Supabase', 'pgvector', 'SQLite', 'Docker'],
-  'deploy': ['Render', 'Vercel', 'Streamlit Cloud'],
+  'deploy': ['Render', 'Vercel', 'Streamlit Cloud', 'GitHub Actions'],
 };
