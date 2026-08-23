@@ -51,12 +51,7 @@ export default function Nav() {
         </a>
         <div className="hidden md:flex items-center gap-8 font-mono text-sm">
           {links.map((l) => (
-            
-              key={l.href}
-              href={l.href}
-              className="relative transition-colors"
-              style={{ color: active === l.href ? 'var(--mint)' : 'var(--ink-muted)' }}
-            >
+            <a key={l.href} href={l.href} className="relative transition-colors" style={{ color: active === l.href ? 'var(--mint)' : 'var(--ink-muted)' }}>
               {l.label}
               {active === l.href && (
                 <motion.span
