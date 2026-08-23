@@ -1,10 +1,10 @@
-import { lazy, Suspense } from 'react';
+﻿import { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ExternalLink } from 'lucide-react';
 import GithubIcon from './GithubIcon';
 
 // Lazy-loaded so the Three.js scene doesn't block first paint of the hero
-// text/CTA — it loads in a separate chunk and fades in once ready, instead
+// text/CTA â€” it loads in a separate chunk and fades in once ready, instead
 // of delaying First Contentful Paint / Largest Contentful Paint.
 const AgentGraph = lazy(() => import('./AgentGraph'));
 
@@ -28,9 +28,9 @@ export default function Hero() {
         </motion.p>
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 1, y: 0 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.7, ease: 'easeOut' }}
+          transition={{ duration: 0.3 }}
           className="font-display font-semibold text-5xl sm:text-6xl md:text-7xl leading-[1.05] tracking-tight max-w-4xl"
         >
           I build AI agents<br />that <span className="text-gradient">actually ship.</span>
@@ -42,7 +42,7 @@ export default function Hero() {
           transition={{ delay: 0.35, duration: 0.7 }}
           className="mt-6 text-lg text-[var(--ink-muted)] max-w-xl leading-relaxed"
         >
-          Ayush Tomar — AI Agent & RAG Developer from Gwalior, India. I design
+          Ayush Tomar â€” AI Agent & RAG Developer from Gwalior, India. I design
           multi-agent systems and RAG pipelines with LangGraph, CrewAI, and FastAPI,
           then take them all the way to production.
         </motion.p>
@@ -74,7 +74,7 @@ export default function Hero() {
           transition={{ delay: 0.9, duration: 0.8 }}
           className="mt-16 flex flex-wrap gap-x-10 gap-y-3 font-mono text-xs text-[var(--ink-muted)]"
         >
-          <span>NPTEL Elite Top 5% — IIT Kanpur</span>
+          <span>NPTEL Elite Top 5% â€” IIT Kanpur</span>
           <span className="text-[var(--glass-border)]">/</span>
           <span>MITS Gwalior, 2027</span>
         </motion.div>
