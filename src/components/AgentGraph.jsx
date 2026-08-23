@@ -1,6 +1,7 @@
 import { useRef, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { motion } from 'framer-motion';
 
 const NODE_COUNT = 42;
 const CONNECT_DIST = 2.6;
@@ -32,7 +33,6 @@ function Graph() {
   const positions = useMemo(() => new Float32Array(NODE_COUNT * 3), []);
   const maxLines = NODE_COUNT * 8;
   const linePositions = useMemo(() => new Float32Array(maxLines * 2 * 3), [maxLines]);
-  const colorAttrRef = useRef();
 
   useFrame((state) => {
     const t = state.clock.elapsedTime;
@@ -65,7 +65,6 @@ function Graph() {
         }
       }
     }
-    // zero out remaining
     for (let k = lineIdx; k < maxLines; k++) {
       linePositions[k * 6] = 0; linePositions[k * 6 + 1] = 0; linePositions[k * 6 + 2] = 0;
       linePositions[k * 6 + 3] = 0; linePositions[k * 6 + 4] = 0; linePositions[k * 6 + 5] = 0;
@@ -101,10 +100,16 @@ function Graph() {
 
 export default function AgentGraph() {
   return (
-    <div className="absolute inset-0" aria-hidden="true">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      className="absolute inset-0"
+      aria-hidden="true"
+    >
       <Canvas camera={{ position: [0, 0, 7], fov: 55 }} dpr={[1, 1.5]}>
         <Graph />
       </Canvas>
-    </div>
+    </motion.div>
   );
 }
