@@ -11,7 +11,12 @@ A dark, glassmorphic portfolio with a live Three.js agent-graph hero, glowing pr
 
 Most portfolios list projects. This one is meant to work like a pitch: the hero states the positioning in one line, the agent-graph background reinforces "AI agents" visually instead of just in text, and every project card links straight to a live deployment — so a recruiter or client can verify shipped work in seconds, not take my word for it.
 
-![Portfolio preview](public/preview.png)
+![Portfolio preview — dark glassmorphic hero with animated agent-graph background](public/preview.png)
+
+<!-- TODO: a short screen-recording GIF would outperform the static image above — the agent-graph
+motion, scroll-triggered animation, and glassmorphism are the actual pitch, and none of that
+reads from a still frame. The live demo link covers this for now, but a GIF keeps someone
+on the README instead of requiring a click-through. -->
 
 ## Contents
 - [Stack](#stack)
