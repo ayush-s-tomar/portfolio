@@ -78,6 +78,7 @@ Netlify works the same way — build command `npm run build`, publish dir `dist`
 - **Performance:** node count and connection distance are tuned (see `AgentGraph.jsx`) to stay smooth on mid-range laptops; drop `NODE_COUNT` first if you notice frame drops on your machine.
 - Respects `prefers-reduced-motion` for accessibility — the graph animation is disabled for users who request it.
 - No backend — fully static, deploys as a single Vite build, so there's no cold-start latency on load.
+- **Project links are third-party free-tier deployments** (Streamlit Cloud, Render, Vercel). They sleep, get renamed, or break independently of this site, and the "verify shipped work in seconds" pitch only holds while every card link works. Run `node scripts/check-links.mjs` to check every URL in `src/data.js` (Node 18+; exits non-zero on any failure, so it also works in CI). It catches dead or renamed URLs, not apps that load but fail on first use, so click through each live demo before sharing the site.
 - Update the `mailto:` address in `Contact.jsx` and demo links in `data.js` before reusing.
 
 ## License
